@@ -1,16 +1,16 @@
 // Include Server Dependencies
-let express = require("express");
-let bodyParser = require("body-parser");
-let logger = require("morgan");
-let mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
+const logger = require("morgan");
+const mongoose = require("mongoose");
 
 // Require Click schema
-let Article = require("./models/article");
+const Article = require("./models/article");
 
 // Create a new express app
-let app = express();
+const app = express();
 // Sets an initial port. We'll use this later in our listener
-let PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 // Run Morgan for Logging
 app.use(logger("dev"));
@@ -25,7 +25,7 @@ app.use(express.static("./public"));
 
 // MongoDB configuration (Change this URL to your own DB)
 mongoose.connect("mongodb://admin:nytreact@ds141960.mlab.com:41960/nytsearchdb");
-let db = mongoose.connection;
+const db = mongoose.connection;
 
 db.on("error", function(err) {
   console.log("Mongoose Error: ", err);
@@ -79,7 +79,7 @@ app.post("/api/saved", function(req, res) {
 
 });
 
-app.delete("/api/saved/:id", function(req, res) {
+app.deconste("/api/saved/:id", function(req, res) {
 
     Article._findOneAndRemove({
         "_id": req.params.id
