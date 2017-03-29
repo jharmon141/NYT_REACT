@@ -23,7 +23,7 @@ var Main = React.createClass({
         helpers.getSaved().then( (response) => {
             console.log(response);
             if (response !== this.state.saved) {
-                console.log("History", response.data);
+                console.log("Saved Articles", response.data);
                 this.setState({ history: response.data });
             }
         });
@@ -33,18 +33,17 @@ var Main = React.createClass({
     componentDidUpdate: function() {
 
         // Run the query for the address
-        helpers.runQuery(this.state.searchTerm, this.state.startDate, this.state.endDate).then( (data) => {
+        helpers.runQuery(this.state.searchTopic, this.state.startDate, this.state.endDate).then( (data) => {
             if (data !== this.state.results) {
                 console.log("Results", data);
                 this.setState({ results: data });
-
             }
         });
     },
 
     saveArticle: function() {
 
-        helpers.postSaved(this.state.searchTerm).then( () => {
+        helpers.postSaved(this.state.searchTopic).then( () => {
             console.log("Updated!");
 
             // After we've done the post... then get the updated saved
@@ -72,34 +71,15 @@ var Main = React.createClass({
             <div className="row">
             <div className="jumbotron">
             <h2 className="text-center">New York Times Article Scrubber</h2>
-            <h5 className="text-center">Search for and save articles of interest</h5>
+            <h4 className="text-center">Search for and save articles of interest</h4>
             </div>
             </div>
-
-            <div className="row">
-            <div className="col-md-10">
 
             <Form searchTopic={this.setSearch} />
 
-            </div>
-            </div>
+            <Results results={this.state.results} save={this.state.saveArticle} />
 
-            <div className="row">
-            <div className="col-md-10">
-
-            <Results address={this.state.results} />
-
-            </div>
-            </div>
-
-            <div className="row">
-
-            <div className="col-md-10">
-
-            <Saved history={this.state.history} />
-
-            </div>
-            </div>
+            <Saved saved={this.state.saved} />
 
             </div>
         );

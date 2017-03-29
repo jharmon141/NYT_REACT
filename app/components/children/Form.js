@@ -15,8 +15,10 @@ var Form = React.createClass({
 
   // This function will respond to the user input
   handleChange: function(event) {
-
-    this.setState({ event.target.id: event.target.value });
+      
+    let newState = {};
+    newState[event.target.id] = event.target.value;
+    this.setState(newState);
 
   },
 
@@ -27,8 +29,12 @@ var Form = React.createClass({
     event.preventDefault();
 
     // Set the parent to have the search term
-    this.props.setTerm(this.state.term);
-    this.setState({ term: "" });
+    this.props.searchTopic(this.state.topic, this.state.start, this.state.end);
+    this.setState({ 
+        topic: "",
+        start: "",
+        end: ""
+    });
   },
   // Here we describe this component's render method
   render: function() {
@@ -39,54 +45,55 @@ var Form = React.createClass({
         </div>
         <div className="panel-body text-center">
           <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <h4 className="">
-                <strong>Topic</strong>
-              </h4>
 
-              {/*
-                Note how each of the form elements has an id that matches the state.
-                This is not necessary but it is convenient.
-                Also note how each has an onChange event associated with our handleChange event.
-              */}
+              <h4 className="">
+                Topic
+              </h4>
               <input
                 value={this.state.topic}
                 type="text"
                 className="form-control text-center"
                 id="topic"
+                ref="topic"
                 onChange={this.handleChange}
                 required
               />
+
               <h4 className="">
-                <strong>Start Year (YYYY)</strong>
+                Start Year (YYYY)
               </h4>
               <input
                 value={this.state.start}
                 type="text"
                 className="form-control text-center"
                 id="start"
+                ref="start"
                 onChange={this.handleChange}
                 required
               />
+
               <h4 className="">
-                <strong>End Year (YYYY)</strong>
+                End Year (YYYY)
               </h4>
               <input
                 value={this.state.end}
                 type="text"
                 className="form-control text-center"
                 id="end"
+                ref="end"
                 onChange={this.handleChange}
                 required
               />
+
               <br />
+
               <button
                 className="btn btn-primary"
                 type="submit"
               >
                 Submit
               </button>
-            </div>
+
           </form>
         </div>
       </div>

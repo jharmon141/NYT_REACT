@@ -3,10 +3,21 @@
   "version": "1.0.0",
   "description": "NYT search app using MERN stack",
   "main": "public/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack & node server",
+    "start": "node server",
+    "build": "webpack"
+  },
   "repository": "git@github.com:jharmon141/NYT_REACT.git",
   "author": "jharmon141 <jeremy.l.harmon@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.15.3",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.2",
+    "morgan": "^1.8.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router": "^4.0.0"

@@ -16,7 +16,11 @@ var Results = React.createClass({
           {this.props.results.map(function(article, i) {
               if (i < 5) {
             return (
-              <h5 key={i}>{article.title}</h5>
+                <div className="panel panel-default">
+                <div className="panel-body">
+              <a href={article.web_url}><h5 key={i}>{article.headline.main}</h5></a>
+                </div>
+                </div>
             );
               }
               return
