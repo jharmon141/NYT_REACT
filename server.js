@@ -79,9 +79,9 @@ app.post("/api/saved", function(req, res) {
 
 });
 
-app.deconste("/api/saved/:id", function(req, res) {
+app.delete("/api/saved/:id", function(req, res) {
 
-    Article._findOneAndRemove({
+    Article.findOneAndRemove({
         "_id": req.params.id
     },
         function(err, doc) {
