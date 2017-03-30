@@ -54,7 +54,6 @@ var Form = React.createClass({
                 type="text"
                 className="form-control text-center"
                 id="topic"
-                ref="topic"
                 onChange={this.handleChange}
                 required
               />
@@ -67,7 +66,6 @@ var Form = React.createClass({
                 type="text"
                 className="form-control text-center"
                 id="start"
-                ref="start"
                 onChange={this.handleChange}
                 required
               />
@@ -80,7 +78,6 @@ var Form = React.createClass({
                 type="text"
                 className="form-control text-center"
                 id="end"
-                ref="end"
                 onChange={this.handleChange}
                 required
               />

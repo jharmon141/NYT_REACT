@@ -14,7 +14,12 @@ var Main = React.createClass({
 
     // Note how we added in this history state variable
     getInitialState: function() {
-        return { searchTopic: "", startDate: "", endDate: "", results: [], saved: [] };
+        return { searchTopic: "", startDate: "", endDate: "", results: [], saved: [],
+            toPost: {
+                title: "",
+                url: ""
+            }
+        };
     },
 
     // The moment the page renders get the History
@@ -43,7 +48,7 @@ var Main = React.createClass({
 
     saveArticle: function() {
 
-        helpers.postSaved(this.state.searchTopic).then( () => {
+        helpers.postSaved(this.state.toPost).then( () => {
             console.log("Updated!");
 
             // After we've done the post... then get the updated saved
@@ -64,6 +69,15 @@ var Main = React.createClass({
         });
     },
 
+    setToPost: function(title, url) {
+        let toPostTitle = toPost.title;
+        let toPostUrl = toPost.url;
+        this.setState({
+            title: toPostTitle,
+            url: toPostUrl 
+        });
+    },
+
     // Here we render the function
     render: function() {
         return (
@@ -77,7 +91,7 @@ var Main = React.createClass({
 
             <Form searchTopic={this.setSearch} />
 
-            <Results results={this.state.results} save={this.state.saveArticle} />
+            <Results results={this.state.results} save={this.setToPost} />
 
             <Saved saved={this.state.saved} />
 
