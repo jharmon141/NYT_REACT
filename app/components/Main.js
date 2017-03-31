@@ -57,6 +57,11 @@ var Main = React.createClass({
                 console.log("History", response.data);
                 this.setState({ saved: response.data });
             });
+
+            this.setState({
+                toPostTitle: "",
+                toPostUrl: ""
+            });
         });
     },
 
@@ -73,8 +78,8 @@ var Main = React.createClass({
         let toPostTitle = toPost.title;
         let toPostUrl = toPost.url;
         this.setState({
-            title: toPostTitle,
-            url: toPostUrl 
+            toPostTitle: title,
+            toPostUrl: url 
         });
     },
 
@@ -91,7 +96,7 @@ var Main = React.createClass({
 
             <Form searchTopic={this.setSearch} />
 
-            <Results results={this.state.results} save={this.setToPost} />
+            <Results results={this.state.results} setSave={this.setToPost} />
 
             <Saved saved={this.state.saved} />
 

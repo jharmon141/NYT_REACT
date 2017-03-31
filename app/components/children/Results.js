@@ -3,14 +3,28 @@ var React = require("react");
 
 // Creating the Results component
 var Results = React.createClass({
+    getInitialState: function() {
+        return {
+            toPostTitle: "",
+            toPostUrl: ""
+        }
+    },
 
-  save: function() {
-      let newSaved = {};
-      newSaved = {
-          title: event.target.headline.main,
-          url: event.target.web_url
-      }
-  },
+    // handleSaveClick: function(item){
+    //     //set toPostTitle and toPostUrl
+    //     this.setState({
+    //         toPostTitle: item.headline.main,
+    //         toPostUrl: item.web_url
+    //     });
+
+    //     this.props.setSave(this.state.toPostTitle, this.state.toPostUrl);
+
+    //     this.setState({
+    //         toPostTitle: "",
+    //         toPostUrl: "",
+    //     });
+        
+    // },
 
   // Here we render the function
   render: function() {
@@ -29,7 +43,6 @@ var Results = React.createClass({
               <a href={article.web_url}><h5 key={i}>{article.headline.main}</h5></a>
               <button
                 className="btn btn-primary"
-                onClick={this.props.save}
               >
                 Save
               </button>
