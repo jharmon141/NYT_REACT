@@ -3,28 +3,12 @@ var React = require("react");
 
 // Creating the Results component
 var Results = React.createClass({
-    getInitialState: function() {
-        return {
-            toPostTitle: "",
-            toPostUrl: ""
-        }
-    },
 
-    // handleSaveClick: function(item){
-    //     //set toPostTitle and toPostUrl
-    //     this.setState({
-    //         toPostTitle: item.headline.main,
-    //         toPostUrl: item.web_url
-    //     });
+    handleSaveClick: function(item){
 
-    //     this.props.setSave(this.state.toPostTitle, this.state.toPostUrl);
-
-    //     this.setState({
-    //         toPostTitle: "",
-    //         toPostUrl: "",
-    //     });
+        this.props.setToPost(item.headline.main, item.web_url, item.pub_date);
         
-    // },
+    },
 
   // Here we render the function
   render: function() {
@@ -35,18 +19,17 @@ var Results = React.createClass({
         </div>
         <div className="panel-body">
 
-          {this.props.results.map(function(article, i) {
+          {this.props.results.map((article, i)=> {
               if (i < 5) {
             return (
-                <div className="panel panel-default">
-                <div className="panel-body">
-              <a href={article.web_url}><h5 key={i}>{article.headline.main}</h5></a>
-              <button
-                className="btn btn-primary"
-              >
-                Save
-              </button>
-                </div>
+                <div className="list-group-item" style={{'minHeight': '55px'}}>
+              <span style={{'fontSize': '20px'}}>{article.headline.main}</span >
+ <span className="btn-group pull-right" >
+                  <a href={article.web_url} target="_blank"><button className="btn btn-default ">View Article</button></a>
+
+                  <button className="btn btn-primary" onClick={() => this.handleSaveClick(article)}>Save</button>
+                </span>
+                <p>Date Published: {article.pub_date}</p>
                 </div>
             );
               }

@@ -14,53 +14,44 @@ var Main = React.createClass({
 
     // Note how we added in this history state variable
     getInitialState: function() {
-        return { searchTopic: "", startDate: "", endDate: "", results: [], saved: [],
-            toPost: {
-                title: "",
-                url: ""
-            }
-        };
+        return { searchTopic: "", startDate: "", endDate: "", results: [], saved: [], toPostTitle: "", toPostUrl: "", toPostPubDate: "" };
     },
 
-    // The moment the page renders get the History
     componentDidMount: function() {
-        // Get the latest history.
+        // Get the saved.
         helpers.getSaved().then( (response) => {
-            console.log(response);
             if (response !== this.state.saved) {
                 console.log("Saved Articles", response.data);
-                this.setState({ history: response.data });
+                this.setState({ saved: response.data });
             }
         });
     },
 
-    // If the component changes (i.e. if a search is entered)...
     componentDidUpdate: function() {
 
         // Run the query for the address
         helpers.runQuery(this.state.searchTopic, this.state.startDate, this.state.endDate).then( (data) => {
             if (data !== this.state.results) {
-                console.log("Results", data);
                 this.setState({ results: data });
             }
         });
     },
 
-    saveArticle: function() {
+    saveArticle: function(title, url, date) {
 
-        helpers.postSaved(this.state.toPost).then( () => {
+        helpers.postSaved(title, url, date).then( () => {
             console.log("Updated!");
 
             // After we've done the post... then get the updated saved
             helpers.getSaved().then( (response) => {
-                console.log("Current History", response.data);
-                console.log("History", response.data);
+                console.log("Current Saved", response.data);
                 this.setState({ saved: response.data });
             });
 
             this.setState({
                 toPostTitle: "",
-                toPostUrl: ""
+                toPostUrl: "",
+                toPostPubDate: ""
             });
         });
     },
@@ -74,13 +65,15 @@ var Main = React.createClass({
         });
     },
 
-    setToPost: function(title, url) {
-        let toPostTitle = toPost.title;
-        let toPostUrl = toPost.url;
+    setToPost: function(title, url, datePosted) {
+
         this.setState({
             toPostTitle: title,
-            toPostUrl: url 
+            toPostUrl: url, 
+            toPostPubDate: datePosted
         });
+        
+        this.saveArticle(this.state.toPostTitle, this.state.toPostUrl, this.state.toPostPubDate);
     },
 
     // Here we render the function
@@ -96,7 +89,7 @@ var Main = React.createClass({
 
             <Form searchTopic={this.setSearch} />
 
-            <Results results={this.state.results} setSave={this.setToPost} />
+            <Results results={this.state.results} setToPost={this.setToPost} />
 
             <Saved saved={this.state.saved} />
 

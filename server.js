@@ -62,17 +62,16 @@ app.get("/api/saved", function(req, res) {
 // We will call this route the moment the "click" or "reset" button is pressed.
 app.post("/api/saved", function(req, res) {
 
-    Article.save({
-        title: req.body.title,
-        url: req.body.url
-    },
-        function(err, doc) {
+    console.log(req.body);
+    let newArticle = new Article(req.body);
+
+    newArticle.save(function(err, doc) {
 
         if (error) {
             console.log(error);
         }
         else {
-            console.log(doc);
+            res.redirect('/');
         }
 
     });
