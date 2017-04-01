@@ -24,7 +24,7 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB configuration (Change this URL to your own DB)
-mongoose.connect("mongodb://admin:nytreact@ds141960.mlab.com:41960/nytsearchdb");
+mongoose.connect("mongodb://localhost/nytreact");
 const db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -62,17 +62,10 @@ app.get("/api/saved", function(req, res) {
 // We will call this route the moment the "click" or "reset" button is pressed.
 app.post("/api/saved", function(req, res) {
 
-    console.log(req.body);
     let newArticle = new Article(req.body);
 
     newArticle.save(function(err, doc) {
 
-        if (error) {
-            console.log(error);
-        }
-        else {
-            res.redirect('/');
-        }
 
     });
 

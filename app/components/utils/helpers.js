@@ -20,11 +20,11 @@ const helper = {
   },
 
   postSaved: function(title, url, date) {
-    return axios.post("/api/saved" , {
-        title: title,
-        url: url, 
-        date: date
-    });
+      return axios.post("/api/saved" , {
+          title: title,
+          url: url, 
+          date: date
+      });
   },
 
   deleteSaved: function(articleData) {

@@ -6,7 +6,7 @@ var Results = React.createClass({
 
     handleSaveClick: function(item){
 
-        this.props.setToPost(item.headline.main, item.web_url, item.pub_date);
+        this.props.saveArticle(item.headline.main, item.web_url, item.pub_date);
         
     },
 

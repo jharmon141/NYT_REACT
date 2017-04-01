@@ -5,14 +5,6 @@ var React = require("react");
 var Form = React.createClass({
 
   // Here we set a generic state associated with the text being searched for
-  getInitialState: function() {
-    return { 
-        topic: "",
-        start: "",
-        end: ""
-    };
-  },
-
   // This function will respond to the user input
   handleChange: function(event) {
       
@@ -28,11 +20,6 @@ var Form = React.createClass({
 
     // Set the parent to have the search term
     this.props.searchTopic(this.state.topic, this.state.start, this.state.end);
-    this.setState({ 
-        topic: "",
-        start: "",
-        end: ""
-    });
   },
   // Here we describe this component's render method
   render: function() {
@@ -48,7 +35,6 @@ var Form = React.createClass({
                 Topic
               </h4>
               <input
-                value={this.state.topic}
                 type="text"
                 className="form-control text-center"
                 id="topic"
@@ -60,7 +46,6 @@ var Form = React.createClass({
                 Start Year (YYYY)
               </h4>
               <input
-                value={this.state.start}
                 type="text"
                 className="form-control text-center"
                 id="start"
@@ -72,7 +57,6 @@ var Form = React.createClass({
                 End Year (YYYY)
               </h4>
               <input
-                value={this.state.end}
                 type="text"
                 className="form-control text-center"
                 id="end"

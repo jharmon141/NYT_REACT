@@ -35,26 +35,13 @@ var Main = React.createClass({
                 this.setState({ results: data });
             }
         });
-    },
-
-    saveArticle: function(title, url, date) {
-
-        helpers.postSaved(title, url, date).then( () => {
-            console.log("Updated!");
-
-            // After we've done the post... then get the updated saved
-            helpers.getSaved().then( (response) => {
-                console.log("Current Saved", response.data);
-                this.setState({ saved: response.data });
-            });
-
-            this.setState({
-                toPostTitle: "",
-                toPostUrl: "",
-                toPostPubDate: ""
-            });
+        // After we've done the post... then get the updated saved
+        helpers.getSaved().then((response) => {
+            this.setState({ saved: response.data });
         });
+
     },
+
 
     // This function allows childrens to update the parent.
     setSearch: function(topic, start, end) {
@@ -65,15 +52,14 @@ var Main = React.createClass({
         });
     },
 
-    setToPost: function(title, url, datePosted) {
+    saveArticle: function(title, url, datePosted) {
 
-        this.setState({
-            toPostTitle: title,
-            toPostUrl: url, 
-            toPostPubDate: datePosted
+        helpers.postSaved(title, url, datePosted)
+            .then(() => {
+            console.log("Updated!");
+
         });
         
-        this.saveArticle(this.state.toPostTitle, this.state.toPostUrl, this.state.toPostPubDate);
     },
 
     // Here we render the function
@@ -89,7 +75,7 @@ var Main = React.createClass({
 
             <Form searchTopic={this.setSearch} />
 
-            <Results results={this.state.results} setToPost={this.setToPost} />
+            <Results results={this.state.results} saveArticle={this.saveArticle} />
 
             <Saved saved={this.state.saved} />
 

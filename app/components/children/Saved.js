@@ -13,9 +13,10 @@ var Saved = React.createClass({
         <div className="panel-body text-center">
 
           {this.props.saved.map((Article, i)=> {
-              console.log(Article);
+
             return (
               <p key={i}>{Article.title} - {Article.date}</p>
+
             );
           })}
         </div>
