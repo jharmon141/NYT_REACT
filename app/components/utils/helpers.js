@@ -15,10 +15,6 @@ const helper = {
 
   },
 
-  getSaved: function() {
-    return axios.get("/api/saved");
-  },
-
   postSaved: function(title, url, date) {
       return axios.post("/api/saved" , {
           title: title,
@@ -27,8 +23,14 @@ const helper = {
       });
   },
 
-  deleteSaved: function(articleData) {
-    return axios.delete("/api/saved", articleData);
+  deleteSaved: function(article) {
+        axios.delete('/api/saved/' + article._id)
+            .then((response) => {
+                this.setState({
+                    saved: response.data
+                });
+                return response;
+            });
   }
 
 };

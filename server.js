@@ -66,7 +66,6 @@ app.post("/api/saved", function(req, res) {
 
     newArticle.save(function(err, doc) {
 
-
     });
 
 });
@@ -78,8 +77,8 @@ app.delete("/api/saved/:id", function(req, res) {
     },
         function(err, doc) {
 
-        if (error) {
-            console.log(error);
+        if (err) {
+            console.log(err);
         }
         else {
             console.log(doc);

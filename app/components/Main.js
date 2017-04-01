@@ -5,6 +5,7 @@ var React = require("react");
 var Form = require("./children/Form");
 var Results = require("./children/Results");
 var Saved = require("./children/Saved");
+var axios = require('axios');
 
 // Helper for making AJAX requests to our API
 var helpers = require("./utils/helpers");
@@ -14,17 +15,11 @@ var Main = React.createClass({
 
     // Note how we added in this history state variable
     getInitialState: function() {
-        return { searchTopic: "", startDate: "", endDate: "", results: [], saved: [], toPostTitle: "", toPostUrl: "", toPostPubDate: "" };
+        return { searchTopic: "", startDate: "", endDate: "", results: [], saved: [] };
     },
 
     componentDidMount: function() {
-        // Get the saved.
-        helpers.getSaved().then( (response) => {
-            if (response !== this.state.saved) {
-                console.log("Saved Articles", response.data);
-                this.setState({ saved: response.data });
-            }
-        });
+        this.getSavedArticles();
     },
 
     componentDidUpdate: function() {
@@ -35,11 +30,6 @@ var Main = React.createClass({
                 this.setState({ results: data });
             }
         });
-        // After we've done the post... then get the updated saved
-        helpers.getSaved().then((response) => {
-            this.setState({ saved: response.data });
-        });
-
     },
 
 
@@ -52,14 +42,23 @@ var Main = React.createClass({
         });
     },
 
-    saveArticle: function(title, url, datePosted) {
+    saveArticle: function(title, url, date) {
+        helpers.postSaved(title, url, date)
+        this.getSavedArticles();
+    },
 
-        helpers.postSaved(title, url, datePosted)
-            .then(() => {
-            console.log("Updated!");
-
+    getSavedArticles: function(){
+        axios.get('/api/saved')
+        .then((response) => {
+            this.setState({
+                saved: response.data
+            });
         });
-        
+    },
+
+    deleteArticle: function(article) {
+        helpers.deleteSaved(article);
+        this.getSavedArticles();
     },
 
     // Here we render the function
@@ -77,7 +76,7 @@ var Main = React.createClass({
 
             <Results results={this.state.results} saveArticle={this.saveArticle} />
 
-            <Saved saved={this.state.saved} />
+            <Saved savedArticles={this.state.saved} deleteArticle={this.deleteArticle}/>
 
             </div>
         );

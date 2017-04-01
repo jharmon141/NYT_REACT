@@ -1,24 +1,32 @@
-// Include React
 var React = require("react");
 
-// This is the History component. It will be used to show a log of  recent searches.
 var Saved = React.createClass({
-  // Here we describe this component's render method
+
+  handleDeleteClick: function(item) {
+        this.props.deleteArticle(item);
+  },
+
   render: function() {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
           <h3 className="panel-title text-center">Saved Articles</h3>
         </div>
-        <div className="panel-body text-center">
+        <div className="panel-body">
 
-          {this.props.saved.map((Article, i)=> {
-
+        {this.props.savedArticles.map((article, i)=> {
             return (
-              <p key={i}>{Article.title} - {Article.date}</p>
+                <div className="list-group-item" style={{'minHeight': '55px'}}>
+                <span style={{'fontSize': '20px'}}>{article.title}</span >
+                <span className="btn-group pull-right" >
+                <a href={article.url} target="_blank"><button className="btn btn-default ">View Article</button></a>
 
+                <button className="btn btn-danger" onClick={() => this.handleDeleteClick(article)}>Delete</button>
+                </span>
+                <p>Date Published: {article.date}</p>
+                </div>
             );
-          })}
+        })}
         </div>
       </div>
     );
