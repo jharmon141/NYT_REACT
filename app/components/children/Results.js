@@ -25,9 +25,8 @@ var Results = React.createClass({
                 <div className="list-group-item" style={{'minHeight': '55px'}}>
               <span style={{'fontSize': '20px'}}>{article.headline.main}</span >
  <span className="btn-group pull-right" >
-                  <a href={article.web_url} target="_blank"><button className="btn btn-default ">View Article</button></a>
-
                   <button className="btn btn-primary" onClick={() => this.handleSaveClick(article)}>Save</button>
+                  <a href={article.web_url} target="_blank"><button className="btn btn-default ">View Article</button></a>
                 </span>
                 <p>Date Published: {article.pub_date}</p>
                 </div>

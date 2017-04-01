@@ -19,9 +19,8 @@ var Saved = React.createClass({
                 <div className="list-group-item" style={{'minHeight': '55px'}}>
                 <span style={{'fontSize': '20px'}}>{article.title}</span >
                 <span className="btn-group pull-right" >
-                <a href={article.url} target="_blank"><button className="btn btn-default ">View Article</button></a>
-
                 <button className="btn btn-danger" onClick={() => this.handleDeleteClick(article)}>Delete</button>
+                <a href={article.url} target="_blank"><button className="btn btn-default ">View Article</button></a>
                 </span>
                 <p>Date Published: {article.date}</p>
                 </div>
