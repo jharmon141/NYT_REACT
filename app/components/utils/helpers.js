@@ -6,7 +6,7 @@ const helper = {
 
   runQuery: function(topic, start, end) {
 
-     let queryURL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=60ef363d30eb4fc79c853a9acb3cc5b6&q=${topic}&begin_date=${start}0101&end_date=${end}0101`;
+     let queryURL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=60ef363d30eb4fc79c853a9acb3cc5b6?q=${topic}?begin_date=${start}0101?end_date=${end}0101`;
 
     return axios.get(queryURL).then(function(response) {
 
